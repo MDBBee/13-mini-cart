@@ -2,7 +2,7 @@ import CartItem from './CartItem';
 import { useGlobalConetext } from './context';
 
 const CartContainer = () => {
-  const { cart, clearCart } = useGlobalConetext();
+  const { cart, clearCart, totalCost } = useGlobalConetext();
   const cartArr = Array.from(cart);
 
   if (cartArr.length === 0) {
@@ -35,7 +35,7 @@ const CartContainer = () => {
         <hr />
         <div>
           <h5 className="cart-total">
-            total <span>$10</span>
+            total <span>${totalCost}</span>
           </h5>
         </div>
         <button className="btn btn-hipster" onClick={() => clearCart()}>

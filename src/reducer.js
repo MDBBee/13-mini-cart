@@ -6,6 +6,7 @@ import {
   DISPLAY_ITEMS,
   LOADING,
 } from './actions';
+import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   if (action.type === CLEAR_CART) return { ...state, cart: new Map() };
@@ -13,6 +14,7 @@ const reducer = (state, action) => {
   if (action.type === REMOVE) {
     const newCart = new Map(state.cart);
     newCart.delete(action.payload.id);
+    toast.success('Update was a success !');
     return { ...state, cart: newCart };
   }
 
@@ -45,6 +47,14 @@ const reducer = (state, action) => {
     });
 
     return { ...state, cart: updatedCart };
+  }
+
+  if (action.type === LOADING) {
+    return { ...state };
+  }
+
+  if (action.type === DISPLAY_ITEMS) {
+    return { ...state };
   }
 
   throw new Error(`No matching action type of : ${action.type}`);
