@@ -16,7 +16,7 @@ function App() {
 
   return (
     <main>
-      <ToastContainer position="top-center" />
+      {/* <ToastContainer position="top-center" /> */}
       <Navbar />
       <CartContainer />
     </main>

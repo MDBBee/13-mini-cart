@@ -14,7 +14,7 @@ const reducer = (state, action) => {
   if (action.type === REMOVE) {
     const newCart = new Map(state.cart);
     newCart.delete(action.payload.id);
-    toast.success('Update was a success !');
+    // toast.success('Update was a success !');
     return { ...state, cart: newCart };
   }
 
@@ -50,11 +50,23 @@ const reducer = (state, action) => {
   }
 
   if (action.type === LOADING) {
-    return { ...state };
+    return { ...state, isLoading: true };
   }
 
   if (action.type === DISPLAY_ITEMS) {
-    return { ...state };
+    const { data } = action.payload;
+
+    return {
+      ...state,
+      isLoading: false,
+      cart: new Map(
+        data.map((item) => {
+          const { id, ...others } = item;
+          return [id, { ...others }];
+        })
+      ),
+      // cart: new Map(Array.from(data.entries())),
+    };
   }
 
   throw new Error(`No matching action type of : ${action.type}`);
