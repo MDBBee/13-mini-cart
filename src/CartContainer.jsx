@@ -1,9 +1,11 @@
 import CartItem from './CartItem';
-import cartItems from './data';
-const CartContainer = () => {
-  const cartArray = [...cartItems];
+import { useGlobalConetext } from './context';
 
-  if (cartArray.length === 0) {
+const CartContainer = () => {
+  const { cart, clearCart } = useGlobalConetext();
+  const cartArr = Array.from(cart);
+
+  if (cartArr.length === 0) {
     return (
       <section className="cart">
         {/* cart header */}
@@ -22,8 +24,10 @@ const CartContainer = () => {
       </header>
       {/* cart items */}
       <div>
-        {cartArray.map((cartItem) => {
-          return <CartItem key={cartItem.id} {...cartItem} />;
+        {cartArr.map((cartItem) => {
+          const [id, value] = cartItem;
+
+          return <CartItem key={id} id={id} {...value} />;
         })}
       </div>
       {/* cart footer */}
@@ -34,10 +38,7 @@ const CartContainer = () => {
             total <span>$10</span>
           </h5>
         </div>
-        <button
-          className="btn btn-hipster"
-          onClick={() => console.log('clear cart')}
-        >
+        <button className="btn btn-hipster" onClick={() => clearCart()}>
           clear cart
         </button>
       </footer>
